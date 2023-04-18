@@ -1,0 +1,27 @@
+version: '3'
+services:
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:${MONGO_VERSION}
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ADMIN}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ADMIN_PASSWORD}
+    ports:
+      - "${MONGO_PORT}:27017"
+    volumes:
+      - ${MONGO_DATA_FOLDER}:/data/db
+    restart: always
+
+  generic-api:
+    container_name: generic-api
+    build: ./docker/generic-api
+    working_dir: /code
+    command: sh -c "uvicorn app.main:app --host 0.0.0.0 --reload >> uvicorn_log.txt"
+    environment:
+      DEBUG: 1
+    volumes:
+      - .:/code
+    ports:
+      - "${GENERIC_API_PORT}:8000"
+    restart: always
