@@ -14,8 +14,8 @@ services:
     restart: always
 
   generic-api:
-    container_name: generic-api
-    build: ./docker/generic-api
+    container_name: api
+    build: ./docker/api
     working_dir: /code
     command: sh -c "uvicorn app.main:app --host 0.0.0.0 --reload >> uvicorn_log.txt"
     environment:
