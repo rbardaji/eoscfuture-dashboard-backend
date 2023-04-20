@@ -1,0 +1,10 @@
+# Environment variables
+.env*
+
+# Python virtualenv
+generic-api-env
+
+# Python compiled files
+__pycache__/
+
+uvicorn_log.txt
